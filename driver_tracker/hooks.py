@@ -6,6 +6,21 @@ app_email = "info@sowaan.com"
 app_license = "MIT"
 # required_apps = []
 
+fixtures = [
+	{
+        "doctype":"Custom Field",
+		"filters":[
+			[
+				"fieldname",
+                "in",
+                (   
+                "custom_experience", "custom_load", "custom_column_break_qrwwz", "custom_section_break_l4day", "custom_insurance_number", "custom_licence_class", "custom_id_number"
+				)
+			]
+		]
+	}
+]
+
 # Includes in <head>
 # ------------------
 
@@ -28,7 +43,7 @@ app_license = "MIT"
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
-# doctype_js = {"doctype" : "public/js/doctype.js"}
+doctype_js = {"Delivery Trip" : "public/js/delivery_trip.js"}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -214,3 +229,5 @@ app_license = "MIT"
 # auth_hooks = [
 #	"driver_tracker.auth.validate"
 # ]
+
+website_route_rules = [{'from_route': '/delivery_tracker/<path:app_path>', 'to_route': 'delivery_tracker'},]
