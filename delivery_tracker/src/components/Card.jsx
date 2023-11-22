@@ -64,7 +64,7 @@ const Card = ({
           ID {tripData.name}
         </Heading>
         <Stack pl="8">
-          <Badge colorScheme="green" borderRadius="3xl" pr={2} pl={2}>
+          <Badge colorScheme={data.status == "Scheduled" ? "orange" : "green"} textTransform="capitalize" borderRadius="3xl" pr={2} pl={2}>
             {data.status}
           </Badge>
         </Stack>
@@ -76,28 +76,42 @@ const Card = ({
           {data.delivery_stops[data.delivery_stops.length - 1].uom}
         </Text>
       </Flex>
-      <Flex mt={2}>
-        <Text color="gray.500" fontSize="xs">
-          {moment(tripData.departure_time).format("D MMM")}
-        </Text>
-        <Center paddingX={2} height={6}>
-          <Divider orientation="vertical" />
+      <Flex mt={2} alignItems="center" justifyContent="center">
+        <Flex flexDirection="column" w="14%">
+          <Text color="gray.500" m={2} mr={0} fontSize="xs">
+            {moment(tripData.departure_time).format("D MMM")}
+          </Text>
+          <Text color="gray.500" m={2} mt={1} mr={0} fontSize="xs">
+            {moment(
+              data.delivery_stops[data.delivery_stops.length - 1]
+                .estimated_arrival
+            ).format("D MMM")}
+          </Text>
+        </Flex>
+        <Center
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          mx={2}
+          height="auto"
+        >
+          <Box w={1.5} h={1.5} bg="black" borderRadius="full" />
+          <Divider
+            h={6}
+            borderWidth={1.5}
+            borderColor="black"
+            orientation="vertical"
+          />
+          <Box w={1.5} h={1.5} bg="black" borderRadius="full" />
         </Center>
-        <Text>{tripData.driver_address}</Text>
-      </Flex>
-      <Flex>
-        <Text color="gray.500" fontSize="xs">
-          {moment(
-            data.delivery_stops[data.delivery_stops.length - 1]
-              .estimated_arrival
-          ).format("D MMM")}
-        </Text>
-        <Center paddingX={2} height={6}>
-          <Divider orientation="vertical" />
-        </Center>
-        <Text>
-          {data.delivery_stops[data.delivery_stops.length - 1].address}
-        </Text>
+        <Flex flexDirection="column" flexShrink={1} width="86%">
+          <Text m={1} ml={0} noOfLines={1}>
+            {tripData.driver_address}
+          </Text>
+          <Text m={1} ml={0} noOfLines={1}>
+            {data.delivery_stops[data.delivery_stops.length - 1].address}
+          </Text>
+        </Flex>
       </Flex>
     </Box>
   );

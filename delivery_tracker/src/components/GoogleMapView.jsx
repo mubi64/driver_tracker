@@ -1,3 +1,5 @@
+/* eslint-disable react/no-children-prop */
+/* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/display-name */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/rules-of-hooks */
@@ -11,10 +13,12 @@ import {
   useJsApiLoader,
   DirectionsRenderer,
   DirectionsService,
+  Marker,
 } from "@react-google-maps/api";
 import TabBar from "./TabBar";
 import moment from "moment";
 import Loader from "./Loader";
+import { AddIcon, AtSignIcon } from "@chakra-ui/icons";
 
 const containerStyle = {
   width: "100%",
@@ -54,17 +58,18 @@ const GoogleMapView = ({ currentLocation, selectedAddress, apiKey }) => {
 
   const markers = [
     { lat: 24.8655364, lng: 67.0583857 },
-    { lat: 18.5065, lng: 73.7794 },
+    { lat: 24.881299, lng: 67.08367 },
     { lat: 18.559, lng: 73.7868 },
     { lat: 18.5913, lng: 73.7389 },
-    { lat: 18.6298, lng: 73.7997 },
+    { lat: 30.7678429, lng: 61.7862356 },
+    { lat: 37.6271867, lng: -103.7900149 },
   ];
 
   const selectedDeliveryStops = selectedAddress?.delivery_stops || [];
 
   const waypoints = useMemo(() => {
     const stops = selectedAddress?.delivery_stops || [
-      { lat: 24.8655364, lng: 67.0583857 },
+      { lat: 18.6298, lng: 73.7997 },
     ];
     return stops
       .slice(0, stops.length - 1)
@@ -99,6 +104,11 @@ const GoogleMapView = ({ currentLocation, selectedAddress, apiKey }) => {
           style={{ display: "flex" }}
           mapContainerStyle={containerStyle}
           onLoad={onLoad}
+          
+          options={{
+            mapTypeControl: false,
+            streetViewControl: false
+          }}
         >
           {selectedAddress && selectedAddress.delivery_stops ? (
             <Grid
@@ -178,7 +188,6 @@ const GoogleMapView = ({ currentLocation, selectedAddress, apiKey }) => {
           ) : (
             <></>
           )}
-
           {selectedDeliveryStops.map((e, i) => {
             return (
               <div key={i}>
@@ -211,6 +220,14 @@ const GoogleMapView = ({ currentLocation, selectedAddress, apiKey }) => {
           <DirectionsRenderer
             options={{
               directions: response,
+              polylineOptions: {
+                strokeColor: "#000000", // Custom color for the route polyline
+                strokeWeight: 4, // Custom stroke weight
+              },
+              markerOptions: {
+                label: "Text",
+                icon: window.google.maps.SymbolPath,
+              },
             }}
           />
         </GoogleMap>
@@ -237,15 +254,34 @@ const DirectionsServiceWrapper = React.memo(
     useEffect(() => {}, [destination]);
 
     return (
-      <DirectionsService
-        options={{
-          origin: origin || "",
-          waypoints: waypoints,
-          destination: { lat: destination.lat, lng: destination.lng },
-          travelMode: "DRIVING",
-        }}
-        callback={directionsCallback}
-      />
+      <div>
+        <DirectionsService
+          options={{
+            origin: origin || "",
+            waypoints: waypoints,
+            destination: { lat: destination.lat, lng: destination.lng },
+            travelMode: "DRIVING",
+          }}
+          callback={directionsCallback}
+        />
+        <Marker
+          position={{ lat: destination.lat, lng: destination.lng }}
+          icon={{
+            path: "M 16 0 L 20 8 L 8 8 Z",
+            strokeOpacity: 1,
+            strokeWeight: 2,
+            fillColor: "#ff0000",
+          }}
+          style={{
+            width: "200px"
+          }}
+          label={{
+            className: "marker-lable",
+            text: destination.customer_address, // Replace with your desired label text
+            color: "white", // Label text color
+          }}
+        />
+      </div>
     );
   }
 );

@@ -1,8 +1,9 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/display-name */
-import { memo } from "react";
+import { memo, useState } from "react";
 import {
   Avatar,
   Box,
@@ -34,6 +35,13 @@ import { useFrappeGetDoc } from "frappe-react-sdk";
 const TabBar = ({ stops, driver, vehicle }) => {
   const driverDetails = useFrappeGetDoc("Driver", driver);
   const vehicleDetails = useFrappeGetDoc("Vehicle", vehicle);
+  const [showAllStops, setShowAllStops] = useState(false);
+
+  const toggleShowAllStops = () => {
+    setShowAllStops(!showAllStops);
+  };
+
+  const displayedStops = showAllStops ? stops : stops.slice(0, 2); // Show all stops or first 3 stops
 
   if (driverDetails.isLoading === true) {
     return <Text>Loading ...</Text>;
@@ -82,14 +90,19 @@ const TabBar = ({ stops, driver, vehicle }) => {
             borderRadius="1px"
           />
           <TabPanels>
-            <TabPanel w="100%">
+            <TabPanel
+              h={showAllStops == true && "300px"}
+              overflow="auto"
+              w="100%"
+            >
               <Stepper
                 orientation="vertical"
                 height="auto"
                 gap="2"
                 width="100%"
+                mb={3.5}
               >
-                {stops.map((stop, index) => (
+                {displayedStops.map((stop, index) => (
                   <Step key={index} width="100%">
                     <StepIndicator borderColor="teal !important" h={5} w={5}>
                       <StepStatus
@@ -120,6 +133,18 @@ const TabBar = ({ stops, driver, vehicle }) => {
                   </Step>
                 ))}
               </Stepper>
+              {stops.length > 2 && (
+                <Button
+                  w="100%"
+                  position="absolute"
+                  left={0}
+                  bottom={0}
+                  onClick={toggleShowAllStops}
+                  size="sm"
+                >
+                  Show {!showAllStops ? "More" : "Less"}
+                </Button>
+              )}
             </TabPanel>
             <TabPanel>
               <Grid templateColumns="repeat(8, 1fr)" gap={4}>
@@ -177,7 +202,7 @@ const TabBar = ({ stops, driver, vehicle }) => {
                 />
               </Grid>
             </TabPanel>
-            <TabPanel>
+            <TabPanel h={136}>
               <Grid templateColumns="repeat(5, 1fr)" gap={6} mt={6}>
                 <GridItemView
                   tital={"License Plate"}

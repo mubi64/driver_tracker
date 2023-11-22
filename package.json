@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "cd delivery_tracker && yarn dev",
-    "build": "cd delivery_tracker && yarn build"
+    "build": "cd delivery_tracker && yarn install && yarn build"
   },
   "keywords": [],
   "author": "",
