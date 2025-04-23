@@ -11,11 +11,7 @@ fixtures = [
         "doctype":"Custom Field",
 		"filters":[
 			[
-				"fieldname",
-                "in",
-                (   
-                "custom_experience", "custom_load", "custom_column_break_qrwwz", "custom_section_break_l4day", "custom_insurance_number", "custom_licence_class", "custom_id_number"
-				)
+				"module", "=", "Driver Tracker"
 			]
 		]
 	}
@@ -43,7 +39,9 @@ fixtures = [
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
-doctype_js = {"Delivery Trip" : "public/js/delivery_trip.js"}
+doctype_js = {
+    "Delivery Trip": "public/js/delivery_trip.js",
+}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -132,13 +130,11 @@ doctype_js = {"Delivery Trip" : "public/js/delivery_trip.js"}
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-#	"*": {
-#		"on_update": "method",
-#		"on_cancel": "method",
-#		"on_trash": "method"
-#	}
-# }
+doc_events = {
+	"Delivery Note": {
+		"before_save": "driver_tracker.events.delivery_note.before_save",
+	}
+}
 
 # Scheduled Tasks
 # ---------------
