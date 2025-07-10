@@ -1,0 +1,58 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Delivery Reason",
+  "enabled": 1,
+  "modified": "2025-07-09 15:14:20.434017",
+  "name": "Damage of Items",
+  "reason_name": "Damage of Items"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Delivery Reason",
+  "enabled": 1,
+  "modified": "2025-07-09 15:14:50.669072",
+  "name": "Wrong Color",
+  "reason_name": "Wrong Color"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Delivery Reason",
+  "enabled": 1,
+  "modified": "2025-07-09 15:15:02.514128",
+  "name": "Wrong Code",
+  "reason_name": "Wrong Code"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Delivery Reason",
+  "enabled": 1,
+  "modified": "2025-07-09 15:15:16.347932",
+  "name": "Qty Incorrect",
+  "reason_name": "Qty Incorrect"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Delivery Reason",
+  "enabled": 1,
+  "modified": "2025-07-09 15:15:27.664619",
+  "name": "Customer Return",
+  "reason_name": "Customer Return"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Delivery Reason",
+  "enabled": 1,
+  "modified": "2025-07-09 15:15:37.457382",
+  "name": "Delivery later",
+  "reason_name": "Delivery later"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Delivery Reason",
+  "enabled": 1,
+  "modified": "2025-07-09 15:54:34.433476",
+  "name": "Other",
+  "reason_name": "Other"
+ }
+]

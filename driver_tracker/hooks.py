@@ -14,6 +14,14 @@ fixtures = [
 				"module", "=", "Driver Tracker"
 			]
 		]
+	},
+	{
+        "doctype":"Delivery Reason",
+		"filters":[
+			[
+				"enabled", "=", 1
+			]
+		]
 	}
 ]
 
