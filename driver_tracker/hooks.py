@@ -22,6 +22,14 @@ fixtures = [
 				"enabled", "=", 1
 			]
 		]
+	},
+    {
+        "doctype": "Property Setter",
+		"filters": [
+			[
+				"module", "=", "Driver Tracker"
+			]
+		]
 	}
 ]
 
