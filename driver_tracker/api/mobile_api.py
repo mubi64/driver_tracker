@@ -3,7 +3,7 @@ import frappe
 
 @frappe.whitelist()
 def get_panding_order(date):
-    trip_names = frappe.get_all("Delivery Trip", filters={
+    trip_names = frappe.db.get_list("Delivery Trip", filters={
         "docstatus": 1,
         "status": ["!=", "Completed"],
         "departure_time": ["between", [date, date]]
@@ -19,8 +19,7 @@ def get_complete_order(date=None):
     ]
     if date:
         filters.append(["departure_time", "between", [date, date]])
-    print("Hello \n\n\n\n")
-    trip_names = frappe.get_all("Delivery Trip", filters=filters, pluck="name")
+    trip_names = frappe.db.get_list("Delivery Trip", filters=filters, pluck="name")
 
     return [frappe.get_cached_doc("Delivery Trip", name) for name in trip_names]
 
@@ -30,7 +29,7 @@ def get_employee_info():
     if ("Employee" in roles) == False:
         raise Exception("You are not allowed to login")
 
-    employees = frappe.db.get_all(
+    employees = frappe.db.get_list(
         "Employee",
         filters={
             "user_id": frappe.session.user,
